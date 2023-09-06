@@ -121,6 +121,7 @@ public class Model extends Observable {
             Tile t2 = board.tile(i, board.size() - 2);
             if (t1 != null && t2 != null && t1.value() == t2.value()){
                 board.move(i, board.size() - 1, t2);
+                changed = true;
                 score += tile(i, board.size() - 1).value();
                 mergeCheck[i][board.size() - 1] = 1;
             }
@@ -144,11 +145,13 @@ public class Model extends Observable {
                             if (destRow < board.size() -1 && tile(i, destRow +1).value() == tile(i, moveTileRow).value() && mergeCheck[i][destRow + 1] == 0){
                                 Tile t = board.tile(i, moveTileRow);
                                 board.move(i, destRow + 1, t);
+                                changed = true;
                                 score += tile(i, destRow + 1).value();
                                 mergeCheck[i][destRow + 1] = 1;
                             } else {
                                 Tile t = board.tile(i, moveTileRow);
                                 board.move(i, destRow, t);
+                                changed = true;
                             }
                             break;
                           }
@@ -162,7 +165,7 @@ public class Model extends Observable {
 
         }
 
-        changed = true;
+
         board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
