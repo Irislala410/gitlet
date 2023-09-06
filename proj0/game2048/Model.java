@@ -128,11 +128,16 @@ public class Model extends Observable {
 
                     if (board.tile(i, j) != null) {
                         moveTileRow = j;
-                        if (moveTileRow != 0 && destRow > moveTileRow) {
+                        if (destRow < board.size() -1 && tile(i, destRow +1).value() == tile(i, moveTileRow).value()){
+                            Tile t = board.tile(i, moveTileRow);
+                            board.move(i, destRow + 1, t);
+                            score += tile(i, destRow + 1).value();
+                            break;
+                        } else if (moveTileRow != 0 && destRow > moveTileRow) {
                             Tile t = board.tile(i, moveTileRow);
                             board.move(i, destRow, t);
                             break;
-                        }
+                          }
                     }
                     if (j == 0){
                         rowFlag = false;
@@ -150,6 +155,8 @@ public class Model extends Observable {
         }
         return changed;
     }
+
+
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
