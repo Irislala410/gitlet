@@ -113,6 +113,27 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        for (int i = 0; i < board.size(); i++) {
+            int destRow = 0;
+            for (int j = board.size() - 1; j >= 0; j--) {
+                if (board.tile(i, j) == null) {
+                    destRow = j;
+                    break;
+                }
+            }
+            int moveTileRow = 0;
+            for (int j = board.size() - 1; j >= 0; j--) {
+                if (board.tile(i, j) != null) {
+                    moveTileRow = j;
+                    break;
+                }
+            }
+            if (moveTileRow != 0 && destRow > moveTileRow) {
+                Tile t = board.tile(i, moveTileRow);
+                board.move(i, destRow, t);
+            }
+        }
+        changed = true;
 
         checkGameOver();
         if (changed) {
@@ -138,6 +159,13 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i ++){
+            for (int j = 0; j < b.size(); j++){
+                if (b.tile(i, j) == null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -148,6 +176,13 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i ++){
+            for (int j = 0; j < b.size(); j++){
+                if ((b.tile(i, j) != null) && (b.tile(i, j).value() == MAX_PIECE)){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -159,6 +194,24 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        if (emptySpaceExists(b)){
+            return true;
+        } else {
+            for (int i = 0; i < b.size(); i++) {
+                for (int j = 0; j < b.size(); j++) {
+                    if (i < b.size() - 1) {
+                        if (b.tile(i, j).value() == b.tile(i + 1, j).value()) {
+                            return true;
+                        }
+                        if (j < b.size() - 1) {
+                            if (b.tile(i, j).value() == b.tile(i, j + 1).value()) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 
