@@ -1,6 +1,8 @@
 package deque;
 
-public class LinkedListDeque<T> {
+import java.util.Iterator;
+
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T>{
     private class IntNode {
         public T t;
         public IntNode prev;
@@ -79,32 +81,67 @@ public class LinkedListDeque<T> {
             return null;
         } else {
             IntNode p = sentinel;
-            while (p.next != null){
+            int i = 0;
+            while (i <= index){
                 p = p.next;
+                i +=1;
             }
             return p.t;
         }
     }
 
-//    public Iterator<T> iterator(){
-//
-//    }
+    public Iterator<T> iterator(){
+        return new LLDIterator();
+    }
 
-//    public boolean equals(Object o){
-//
-//    }
+    private class LLDIterator implements Iterator<T>{
+        private int currPos;
+        public LLDIterator(){
+            currPos = 0;
+        }
+        public boolean hasNext(){
+            return currPos < size;
+        }
 
-//    public T getRecursive(int index){
-//        if (index > size -1) {
-//            return null;
-//        } else {
-//            IntNode p = sentinel;
-//            if (index == 0) {
-//                return p.T;
-//            } else {
-//                p = p.next;
-//                return p.getRecursive(index - 1);
-//            }
-//        }
-//    }
+        public T next(){
+            T nextvalue = get(currPos);
+            currPos += 1;
+            return nextvalue;
+
+        }
+
+    }
+
+    public boolean equals(Object o){
+        if (o instanceof LinkedListDeque o2){
+            if (size != o2.size){
+                return false;
+            } else {
+                for (int i = 0; i < size; i++){
+                    if (this.get(i) != o2.get(i)){
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public T getRecursive(int index){
+        if (index > size - 1 || index < 0){
+            return null;
+        } else {
+            return recursionhelper(sentinel, index);
+        }
+    }
+
+    public T recursionhelper(IntNode s, int index){
+        if (index == 0) {
+            return s.next.t;
+        } else {
+            return recursionhelper(s.next, index -1);
+        }
+    }
 }

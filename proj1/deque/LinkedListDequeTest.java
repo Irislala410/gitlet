@@ -1,6 +1,7 @@
 package deque;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 
@@ -135,5 +136,63 @@ public class LinkedListDequeTest {
         }
 
 
+    }
+
+    @Test
+    /*test the method get().*/
+    public void testget(){
+        LinkedListDeque<Integer> lldint = new LinkedListDeque<Integer>();
+        lldint.addLast(0);
+        lldint.addLast(1);
+        lldint.addLast(2);
+        assertTrue(lldint.get(0) == 0);
+        assertTrue(lldint.get(1) == 1);
+        assertTrue(lldint.get(2) == 2);
+    }
+
+    @Test
+    /*test the method get().*/
+    public void testgetRecursive(){
+        LinkedListDeque<Integer> lldint = new LinkedListDeque<Integer>();
+        lldint.addLast(0);
+        lldint.addLast(1);
+        lldint.addLast(2);
+        assertTrue(lldint.getRecursive(0) == 0);
+        assertTrue(lldint.getRecursive(1) == 1);
+        assertTrue(lldint.getRecursive(2) == 2);
+    }
+
+    @Test
+    /* test the method equals(). */
+    public void testequal(){
+        LinkedListDeque<Integer> lldequal1 = new LinkedListDeque<>();
+        LinkedListDeque<Integer> lldequal2 = new LinkedListDeque<>();
+        LinkedListDeque<Integer> lldequal3 = new LinkedListDeque<>();
+        lldequal1.addFirst(1);
+        lldequal1.addFirst(2);
+        lldequal1.addFirst(3);
+
+        lldequal2.addFirst(1);
+        lldequal2.addFirst(2);
+        lldequal2.addFirst(3);
+
+        lldequal3.addFirst(1);
+        lldequal3.addFirst(2);
+
+        assertTrue(lldequal1.equals(lldequal2));
+        assertFalse(lldequal1.equals(lldequal3));
+        assertFalse(lldequal2.equals(lldequal3));
+    }
+
+    @Test
+    public void  testIteration(){
+        LinkedListDeque<Integer> a = new LinkedListDeque<>();
+        a.addFirst(1);
+        a.addFirst(2);
+        a.addFirst(3);
+
+        for (int i : a){
+            System.out.println(i);
+        }
     }
 }
