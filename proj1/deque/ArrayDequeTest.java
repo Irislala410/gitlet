@@ -58,4 +58,46 @@ public class ArrayDequeTest {
 
         assertTrue(a1.equals(a2));
     }
+
+    @Test
+    public void upsizing(){
+        ArrayDeque<Integer> a1 = new ArrayDeque<>();
+        for (int i = 0; i <= 20; i++){
+            a1.addLast(i);
+        }
+    }
+
+    @Test
+    public void downsizing(){
+        ArrayDeque<Integer> a1 = new ArrayDeque<>();
+        for (int i = 0; i <= 100; i++){
+            a1.addLast(i);
+        }
+        for (int i = 0; i <= 95; i++){
+            a1.removeLast();
+        }
+
+        assertTrue(a1.size() < 5);
+    }
+
+    @Test
+    public void anotherdownsizing(){
+        ArrayDeque<Integer> a1 = new ArrayDeque<>();
+        for (int i = 0; i <= 50; i++){
+            a1.addLast(i);
+        }
+        for (int i = 0; i <= 50; i++){
+            a1.addFirst(i);
+        }
+
+        for (int i = 0; i <= 30; i++){
+            a1.removeFirst();
+        }
+
+
+        for (int i = 0; i <= 40; i++){
+            a1.removeLast();
+        }
+
+    }
 }
