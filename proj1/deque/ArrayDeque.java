@@ -2,21 +2,21 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] ts;
     private int size;
     private int nextFirst;
     private int nextLast;
 
-    public ArrayDeque(){
+    public ArrayDeque() {
         ts = (T[]) new Object[8];
         size = 0;
         nextFirst = 0;
         nextLast = 1;
     }
 
-    public void addFirst(T item){
-        if (size == ts.length){
+    public void addFirst(T item) {
+        if (size == ts.length) {
             resize(size * 2);
         }
         ts[nextFirst] = item;
@@ -28,8 +28,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         size += 1;
     }
 
-    public void addLast(T item){
-        if (size == ts.length){
+    public void addLast(T item) {
+        if (size == ts.length) {
             resize(size * 2);
         }
         ts[nextLast] = item;
@@ -42,36 +42,45 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     }
 
 
-    public void resize(int capacity){
+    private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        if (nextFirst == ts.length - 1){/*the original array starts from index 0, no matter the length or upsizing or downsizing*/
+        if (nextFirst == ts.length - 1) { /*the original array starts from index 0, no matter the length
+        or upsizing or downsizing*/
             System.arraycopy(ts, 0, a, 0, size);
-        } else if (size == ts.length){/*this means it is upsizing and the array is full*/
-            System.arraycopy(ts, nextFirst + 1, a, 0, ts.length - nextFirst - 1);/*copy the items at the end of the array*/
+        } else if (size == ts.length) { /*this means it is upsizing and the array is full*/
+            System.arraycopy(ts, nextFirst + 1, a, 0, ts.length - nextFirst - 1); /*copy the items at the end of
+            the array*/
             System.arraycopy(ts, 0, a, ts.length - nextFirst - 1, size - (ts.length - nextFirst - 1));
-        } else if (nextFirst < nextLast){/*this means it is downsizing and the items don't cover the end of array*/
+        } else if (nextFirst < nextLast) { /*this means it is downsizing and the items don't cover the end of array*/
             System.arraycopy(ts, nextFirst + 1, a, 0, size);
-        } else {/*this means it is downsizing and the items cover the end of array*/
-            System.arraycopy(ts, nextFirst + 1, a, 0, ts.length - nextFirst - 1);/*copy the items at the end of the array*/
+        } else { /*this means it is downsizing and the items cover the end of array*/
+            System.arraycopy(ts, nextFirst + 1, a, 0, ts.length - nextFirst - 1); /*copy the items at the end
+            of the array*/
             System.arraycopy(ts, 0, a, ts.length - nextFirst - 1, size - (ts.length - nextFirst - 1));
         }
         ts = a;
-        nextFirst = ts.length - 1;/*the new array starts from index 0*/
+        nextFirst = ts.length - 1; /*the new array starts from index 0*/
         nextLast = size;
     }
 
-    public boolean isEmpty(){return size == 0;}
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
-    public int size(){return size;}
+    public int size() {
+        return size;
+    }
 
-    public void printDeque(){}
+    public void printDeque() {
 
-    public T removeFirst(){
-        if (size == 0){
+    }
+
+    public T removeFirst() {
+        if (size == 0) {
             return null;
         } else {
-            double ration = (double)(size - 1) / ts.length;
-            if (ts.length >= 16 && ration < 0.25){
+            double ration = (double) (size - 1) / ts.length;
+            if (ts.length >= 16 && ration < 0.25) {
                 resize(ts.length / 2);
             }
             T temp;
@@ -93,8 +102,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         if (size == 0) {
             return null;
         } else {
-            double ration = (double)(size - 1) / ts.length;
-            if (ts.length >= 16 && ration < 0.25){
+            double ration = (double) (size - 1) / ts.length;
+            if (ts.length >= 16 && ration < 0.25) {
                 resize(ts.length / 2);
             }
             T a;
@@ -113,35 +122,39 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     }
 
-    public T get(int index){return ts[index];}
+    public T get(int index) {
+        return ts[index];
+    }
 
-    public Iterator<T> iterator(){
+    public Iterator<T> iterator() {
         return new ADIterator();
     }
 
-    public class ADIterator implements Iterator<T>{
+    private class ADIterator implements Iterator<T> {
         private int currPos;
-        public ADIterator(){
+        public ADIterator() {
             currPos = nextFirst;
         }
 
-        public boolean hasNext(){
-            if (currPos == nextLast - 1 || (nextLast == 0 && currPos == size - 1)){
+        public boolean hasNext() {
+            if (currPos == nextLast - 1 || (nextLast == 0 && currPos == size - 1)) {
                 return false;
             }
             return true;
         }
 
-        public T next(){
+        public T next() {
             if (currPos == ts.length - 1) {
                 currPos = 0;
-            } else {currPos += 1;}
+            } else {
+                currPos += 1;
+            }
             return ts[currPos];
         }
 
 
     }
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         /*the following code comes from internet for passing the test of "instanceof"*/
         if (this == o) {
             return true;
