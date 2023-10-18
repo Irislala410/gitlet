@@ -142,36 +142,56 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     }
     public boolean equals(Object o){
-        if (o instanceof ArrayDeque o2){
-            if (size != o2.size){
+        /*the following code comes from internet for passing the test of "instanceof"*/
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (!(o instanceof Deque)) {
+            return false;
+        }
+        Deque<T> oa = (Deque<T>) o;
+        if (oa.size() != this.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i += 1) {
+            if (!(oa.get(i).equals(this.get(i)))) {
                 return false;
-            } else {
-                int n;/* n is the index of this array */
-                int m;/* m is the index of array o2 */
-
-                if (nextFirst == ts.length - 1){
-                    n = 0;
-                } else {n = nextFirst + 1;}
-
-                if (o2.nextFirst == o2.ts.length - 1){
-                    m = 0;
-                } else {m = o2.nextFirst + 1;}
-
-                for (int i = 0; i < size; i++){
-                    if (this.get(n) != o2.get(m)){
-                        return false;
-                    }
-                    if (n == ts.length - 1){
-                        n = 0;
-                    } else {n += 1;} /*if n reaches the end of the array, it goes back to the index 0*/
-                    if (m == o2.ts.length - 1){
-                        m = 0;
-                    } else {m += 1;}
-                }
-                return true;
             }
         }
-        return false;
+        return true;
+//        if (o instanceof ArrayDeque o2){
+//            if (size != o2.size){
+//                return false;
+//            } else {
+//                int n;/* n is the index of this array */
+//                int m;/* m is the index of array o2 */
+//
+//                if (nextFirst == ts.length - 1){
+//                    n = 0;
+//                } else {n = nextFirst + 1;}
+//
+//                if (o2.nextFirst == o2.ts.length - 1){
+//                    m = 0;
+//                } else {m = o2.nextFirst + 1;}
+//
+//                for (int i = 0; i < size; i++){
+//                    if (this.get(n) != o2.get(m)){
+//                        return false;
+//                    }
+//                    if (n == ts.length - 1){
+//                        n = 0;
+//                    } else {n += 1;} /*if n reaches the end of the array, it goes back to the index 0*/
+//                    if (m == o2.ts.length - 1){
+//                        m = 0;
+//                    } else {m += 1;}
+//                }
+//                return true;
+//            }
+//        }
+//        return false;
 
     }
 }
