@@ -1,6 +1,9 @@
 package capers;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
+
 import static capers.Utils.*;
 
 /** A repository for Capers 
@@ -18,7 +21,7 @@ public class CapersRepository {
     static final File CWD = new File(System.getProperty("user.dir"));
 
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = null; // TODO Hint: look at the `join`
+    static final File CAPERS_FOLDER = Utils.join(CWD, "capers"); // TODO Hint: look at the `join`
                                             //      function in Utils
 
     /**
@@ -30,8 +33,12 @@ public class CapersRepository {
      *    - dogs/ -- folder containing all of the persistent data for dogs
      *    - story -- file containing the current story
      */
-    public static void setupPersistence() {
-        // TODO
+    public static void setupPersistence() throws IOException {
+        File s = Utils.join(CAPERS_FOLDER,"story.txt");
+        s.createNewFile();
+        Dog.DOG_FOLDER.mkdir();
+//        File outFile = Utils.join(Dog.DOG_FOLDER, "saveDog");
+//        outFile.createNewFile();
     }
 
     /**
@@ -39,8 +46,15 @@ public class CapersRepository {
      * to a file called `story` in the .capers directory.
      * @param text String of the text to be appended to the story
      */
-    public static void writeStory(String text) {
-        // TODO
+    public static void writeStory(String text) throws IOException {
+        /**seems this line and next line ("s") is ugly but i don't
+         * know how to write it elegantly
+         */
+        File s = Utils.join(CAPERS_FOLDER,"story.txt");
+        String oldStoty = readContentsAsString(s);
+        Utils.writeContents(s, oldStoty + text + "\n");
+//        Utils.writeContents(s, oldStoty + text);
+        System.out.println(readContentsAsString(s));
     }
 
     /**
@@ -48,8 +62,11 @@ public class CapersRepository {
      * three non-command arguments of args (name, breed, age).
      * Also prints out the dog's information using toString().
      */
-    public static void makeDog(String name, String breed, int age) {
-        // TODO
+    public static void makeDog(String name, String breed, int age) throws IOException {
+        Dog newDog = new Dog(name, breed, age);
+        newDog.saveDog();
+        System.out.println(newDog.toString());
+
     }
 
     /**
@@ -58,7 +75,10 @@ public class CapersRepository {
      * Chooses dog to advance based on the first non-command argument of args.
      * @param name String name of the Dog whose birthday we're celebrating.
      */
-    public static void celebrateBirthday(String name) {
-        // TODO
+    public static void celebrateBirthday(String name) throws IOException {
+        Dog bdDog = Dog.fromFile(name);
+        bdDog.haveBirthday();
+        bdDog.saveDog();
+
     }
 }
