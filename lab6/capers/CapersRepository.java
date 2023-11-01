@@ -34,7 +34,8 @@ public class CapersRepository {
      *    - story -- file containing the current story
      */
     public static void setupPersistence() throws IOException {
-        File s = Utils.join(CAPERS_FOLDER,"story.txt");
+        CAPERS_FOLDER.mkdir();
+        File s = Utils.join(CAPERS_FOLDER,"story");
         s.createNewFile();
         Dog.DOG_FOLDER.mkdir();
 //        File outFile = Utils.join(Dog.DOG_FOLDER, "saveDog");
