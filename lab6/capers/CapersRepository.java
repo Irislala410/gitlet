@@ -34,10 +34,12 @@ public class CapersRepository {
      *    - story -- file containing the current story
      */
     public static void setupPersistence() throws IOException {
-        CAPERS_FOLDER.mkdir();
         File s = Utils.join(CAPERS_FOLDER,"story");
-        s.createNewFile();
-        Dog.DOG_FOLDER.mkdir();
+        if (!s.exists()) {
+            CAPERS_FOLDER.mkdir();
+            s.createNewFile();
+            Dog.DOG_FOLDER.mkdir();
+        }
 //        File outFile = Utils.join(Dog.DOG_FOLDER, "saveDog");
 //        outFile.createNewFile();
     }
@@ -51,7 +53,7 @@ public class CapersRepository {
         /**seems this line and next line ("s") is ugly but i don't
          * know how to write it elegantly
          */
-        File s = Utils.join(CAPERS_FOLDER,"story.txt");
+        File s = Utils.join(CAPERS_FOLDER,"story");
         String oldStoty = readContentsAsString(s);
         Utils.writeContents(s, oldStoty + text + "\n");
 //        Utils.writeContents(s, oldStoty + text);
