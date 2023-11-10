@@ -1,0 +1,25 @@
+What would you like L to be?: 10
+
+Enter # strings to insert into hashmap.ULLMap: 10000
+class hashmap.ULLMap: 0.35 sec
+
+Enter # strings to insert into your hashmap.MyHashMap: 10000
+class hashmap.MyHashMap: 0.02 sec
+
+Enter # strings to insert into Java's HashMap: 10000
+Java's Built-in HashMap: 0.01 sec
+
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into hashmap.ULLMap: 100000
+--Stack Overflow -- couldn't add 100000 strings of length 10.
+
+Enter # strings to insert into your hashmap.MyHashMap: 100000
+class hashmap.MyHashMap: 0.14 sec
+
+Enter # strings to insert into Java's HashMap: 100000
+Java's Built-in HashMap: 0.06 sec
+
+Would you like to try more timed-tests? (y/n)n
+
+Process finished with exit code 0
