@@ -44,17 +44,20 @@ public class Main {
             case "log":
                 validateNumArgs(args, 1);
                 Repository.checkInitial();
+                Repository.log();
                 //
                 break;
             case "global-log":
                 validateNumArgs(args, 1);
                 Repository.checkInitial();
+                Repository.globalLog();
                 //
                 break;
             case "find":
                 //
                 validateNumArgs(args, 2);
                 Repository.checkInitial();
+                Repository.find(args[1]);
                 break;
             case "status":
                 //

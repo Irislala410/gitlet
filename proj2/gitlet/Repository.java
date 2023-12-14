@@ -240,4 +240,49 @@ public class Repository {
             System.out.println("No reason to remove the file. ");
         }
     }
+
+    /** Print out the commit history from HEAD commit. */
+    public static void log(){
+        printLog(Utils.readContentsAsString(HEAD));
+    }
+
+    /** Print out the commit information till initial commit. Without considering merge.*/
+    public static void printLog(String commitSha1){
+        Commit printCommit = Utils.readObject(Utils.join(COMMIT, commitSha1), Commit.class);
+        System.out.println("===");
+        System.out.println("commit " + commitSha1);
+        System.out.println("Date: "+ printCommit.getDate());
+        System.out.println(printCommit.getMessage());
+        System.out.println();
+        if (printCommit.getParent() != null){
+            printLog(printCommit.getParent());
+        }
+    }
+
+    /** Print out all the commits' information. */
+    public static void globalLog(){
+        List<String> allCommits = Utils.plainFilenamesIn(COMMIT);
+        for (String commitSha1 : allCommits){
+            if (!commitSha1.equals("tempOutFile")) {
+                Commit printCommit = Utils.readObject(Utils.join(COMMIT, commitSha1), Commit.class);
+                System.out.println("===");
+                System.out.println("commit " + commitSha1);
+                System.out.println("Date: " + printCommit.getDate());
+                System.out.println(printCommit.getMessage());
+                System.out.println();
+            }
+        }
+    }
+    /** Prints out the ids of all commits that have the given commit message */
+    public static void find(String findMessage){
+        List<String> allCommits = Utils.plainFilenamesIn(COMMIT);
+        for (String commitSha1 : allCommits){
+            if (!commitSha1.equals("tempOutFile")) {
+                Commit printCommit = Utils.readObject(Utils.join(COMMIT, commitSha1), Commit.class);
+                if (printCommit.getMessage().equals(findMessage)) {
+                    System.out.println(commitSha1);
+                }
+            }
+        }
+    }
 }

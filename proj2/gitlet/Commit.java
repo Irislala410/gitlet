@@ -86,5 +86,11 @@ public class Commit implements Serializable {
         return this.filenameBlob.get(fileName);
     }
 
+    public String getMessage(){ return this.message; }
+
+    public String getParent(){ return this.parent; }
+
+    public String getDate(){ return this.timestamp;}
+
 
 }
