@@ -285,4 +285,49 @@ public class Repository {
             }
         }
     }
+    /** Print out the status information.*/
+    public static void status(){
+
+    }
+
+    /** Takes the version of the file as it exists in the head commit and puts it in
+     * the working directory, overwriting the version of the file that’s already
+     * there if there is one. The new version of the file is not staged.*/
+    public static void checkHEADCommit(String fileName) throws IOException {
+        /** Get the sha1 of head commit. */
+        String HEADSha1 = Utils.readContentsAsString(HEAD);
+        checkCommitFile(HEADSha1, fileName);
+    }
+
+    /** Takes the version of the file as it exists in the commit with the given id,
+     * and puts it in the working directory, overwriting the version of the file
+     * that’s already there if there is one. The new version of the file is not
+     * staged.*/
+    public static void checkSpecificCommit(String commitId, String fileName) throws IOException {
+        List<String> files = Utils.plainFilenamesIn(COMMIT);
+        /* Check if the commit id exists*/
+        if (files.contains(commitId)){
+            String commitSha1 = Utils.readContentsAsString(Utils.join(COMMIT, commitId));
+            checkCommitFile(commitSha1, fileName);
+        } else {
+            System.out.println("No commit with that id exists.");
+            System.exit(0);
+        }
+    }
+
+    /** Copy a file from a commit to CWD. If the file doesn't exist in that commit,
+     * print error message and exit. */
+    public static void checkCommitFile(String commitSha1, String fileName) throws IOException {
+        /** Get the checked commit by its sha1. */
+        Commit checkedCommit = Utils.readObject(Utils.join(COMMIT, commitSha1), Commit.class);
+        if (checkedCommit.containFile(fileName)){
+            /** Get the file's blob sha1 saved in the checked commit. */
+            String blobSha1 = checkedCommit.getBlob(fileName);
+            /** Copy the blob content to the file. */
+            Files.copy(Utils.join(BLOB, blobSha1).toPath(), Utils.join(CWD, fileName).toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } else {
+            System.out.println("File does not exist in that commit.");
+            System.exit(0);
+        }
+    }
 }

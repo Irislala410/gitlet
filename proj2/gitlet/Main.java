@@ -63,9 +63,21 @@ public class Main {
                 //
                 validateNumArgs(args, 1);
                 Repository.checkInitial();
+                Repository.status();
                 break;
             case "checkout":
                 //validateNumArgs has 3 situation.
+                if (args.length != 2 && args.length != 3 && args.length != 4) {
+                    System.out.println("Incorrect operands.");
+                    System.exit(0);
+                }
+                Repository.checkInitial();
+                if (args.length == 3){
+                    Repository.checkHEADCommit(args[2]);
+                }
+                if (args.length == 4){
+                    Repository.checkSpecificCommit(args[1], args[3]);
+                }
                 Repository.checkInitial();
                 break;
             case "branch":
