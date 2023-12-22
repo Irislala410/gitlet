@@ -56,7 +56,7 @@ public class Repository {
      * Check if the working dictionary is an initialized Gitlet working dictionary
      * (one containing a .gitlet subdirectory)
      */
-    public static void checkInitial(){
+    public static void checkInitial() throws IOException {
         if (!GITLET_DIR.exists()){
             System.out.println("Not in an initialized Gitlet directory.");
             System.exit(0);
@@ -123,7 +123,7 @@ public class Repository {
         return currentCommit.containFile(fileName);
     }
     /** Remove the file from RMSTAGING directory if it is there. */
-    public static void removeFromRMSTAGING(String fileToRm){
+    public static void removeFromRMSTAGING(String fileToRm) throws IOException {
         List<String> filesInRm = plainFilenamesIn(RMSTAGING);
         if (filesInRm.contains(fileToRm)) {
             Utils.restrictedDelete(Utils.join(RMSTAGING, fileToRm));
@@ -143,7 +143,7 @@ public class Repository {
     }
 
     /** Return if the file is in staging area. */
-    public static boolean fileInStagingArea(String fileName){
+    public static boolean fileInStagingArea(String fileName) throws IOException {
         List<String> stagingFiles = Utils.plainFilenamesIn(STAGING);
         return stagingFiles.contains(fileName);
     }
@@ -206,7 +206,7 @@ public class Repository {
     }
 
     /** CLear staging area. */
-    public static void clearStaging(){
+    public static void clearStaging() throws IOException {
         List<String> addedFiles = Utils.plainFilenamesIn(STAGING);
         for (String addedFile: addedFiles){
             Utils.join(STAGING, addedFile).delete();
@@ -214,7 +214,7 @@ public class Repository {
     }
 
     /** CLear remove staging area. */
-    public static void clearRMStaging(){
+    public static void clearRMStaging() throws IOException {
         List<String> rmFiles = Utils.plainFilenamesIn(RMSTAGING);
         for (String rmFile: rmFiles){
             Utils.restrictedDelete(Utils.join(RMSTAGING, rmFile));

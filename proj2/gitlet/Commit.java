@@ -78,11 +78,11 @@ public class Commit implements Serializable {
     }
 
     /** Return if the commit contains file: fileName. */
-    public boolean containFile(String fileName) {
+    public boolean containFile(String fileName) throws IOException {
         return this.filenameBlob.containsKey(fileName);
     }
 
-    public String getBlob(String fileName){
+    public String getBlob(String fileName) throws IOException {
         return this.filenameBlob.get(fileName);
     }
 
