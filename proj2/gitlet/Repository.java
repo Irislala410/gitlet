@@ -115,7 +115,7 @@ public class Repository {
 
     }
     /** Return if the file is in current commit. */
-    public static boolean fileInCurrentCommit(String fileName){
+    public static boolean fileInCurrentCommit(String fileName) throws IOException{
         // get the sha1 of the current commit from HEAD file
         String currentCommitSha1 = Utils.readContentsAsString(HEAD);
         // read commit object from Commit directory
@@ -131,7 +131,7 @@ public class Repository {
     }
 
     /** Return if the file is the same with its version in current commit. */
-    public static boolean sameContentInCurrentCommit(String fileName){
+    public static boolean sameContentInCurrentCommit(String fileName) throws IOException{
         String fileString = Utils.readContentsAsString(Utils.join(CWD, fileName));
         String fileSha1 = Utils.sha1(fileString);
         // get the sha1 of the current commit from HEAD file
@@ -248,12 +248,12 @@ public class Repository {
     }
 
     /** Print out the commit history from HEAD commit. */
-    public static void log(){
+    public static void log() throws IOException {
         printLog(Utils.readContentsAsString(HEAD));
     }
 
     /** Print out the commit information till initial commit. Without considering merge.*/
-    public static void printLog(String commitSha1){
+    public static void printLog(String commitSha1) throws IOException {
         Commit printCommit = Utils.readObject(Utils.join(COMMIT, commitSha1), Commit.class);
         System.out.println("===");
         System.out.println("commit " + commitSha1);
@@ -266,7 +266,7 @@ public class Repository {
     }
 
     /** Print out all the commits' information. */
-    public static void globalLog(){
+    public static void globalLog() throws IOException {
         List<String> allCommits = Utils.plainFilenamesIn(COMMIT);
         for (String commitSha1 : allCommits){
             if (!commitSha1.equals("tempOutFile")) {
@@ -280,7 +280,7 @@ public class Repository {
         }
     }
     /** Prints out the ids of all commits that have the given commit message */
-    public static void find(String findMessage){
+    public static void find(String findMessage) throws IOException {
         List<String> allCommits = Utils.plainFilenamesIn(COMMIT);
         for (String commitSha1 : allCommits){
             if (!commitSha1.equals("tempOutFile")) {

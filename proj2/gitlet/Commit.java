@@ -68,17 +68,17 @@ public class Commit implements Serializable {
     }
 
     /** Update the master pointer. */
-    public static void updateMaster(String commitSha1){
+    public static void updateMaster(String commitSha1) throws IOException{
         Utils.writeContents(Repository.MASTER, commitSha1);
     }
 
     /** Update the HEAD pointer. */
-    public static void updateHEAD(String commitSha1){
+    public static void updateHEAD(String commitSha1) throws IOException{
         Utils.writeContents(Repository.HEAD, commitSha1);
     }
 
     /** Return if the commit contains file: fileName. */
-    public boolean containFile(String fileName){
+    public boolean containFile(String fileName) {
         return this.filenameBlob.containsKey(fileName);
     }
 
