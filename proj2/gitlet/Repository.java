@@ -62,6 +62,12 @@ public class Repository {
             System.exit(0);
         }
     }
+    public static void validateNumArgs(String[] args, int num){
+        if (args.length != num){
+            System.out.println("Incorrect operands.");
+            System.exit(0);
+        }
+    }
     /** For the initialization of the working directory: create .gitlet and in it,
      * create .staging, .rmstaging, .blob, .commit for storing different files. Create
      * the initial commit.*/

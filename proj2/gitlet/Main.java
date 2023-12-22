@@ -2,6 +2,8 @@ package gitlet;
 
 import java.io.IOException;
 
+import static gitlet.Repository.validateNumArgs;
+
 /** Driver class for Gitlet, a subset of the Git version-control system.
  *  @author Ruo Liang
  */
@@ -106,10 +108,5 @@ public class Main {
 
         }
     }
-    public static void validateNumArgs(String[] args, int num){
-        if (args.length != num){
-            System.out.println("Incorrect operands.");
-            System.exit(0);
-        }
-    }
+
 }
