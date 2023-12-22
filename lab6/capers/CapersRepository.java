@@ -7,7 +7,7 @@ import java.io.Serializable;
 import static capers.Utils.*;
 
 /** A repository for Capers 
- * @author TODO
+ * @author Ruo Liang
  * The structure of a Capers Repository is as follows:
  *
  * .capers/ -- top level folder for all persistent data in your lab12 folder
@@ -40,8 +40,6 @@ public class CapersRepository {
             s.createNewFile();
             Dog.DOG_FOLDER.mkdir();
         }
-//        File outFile = Utils.join(Dog.DOG_FOLDER, "saveDog");
-//        outFile.createNewFile();
     }
 
     /**
